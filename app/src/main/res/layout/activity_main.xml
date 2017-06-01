@@ -44,6 +44,20 @@
             android:text="aidl_service"/>
 
 
+        <Button
+            android:id="@+id/handlerthread"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hanndlerthread"/>
+
+        <TextView
+            android:id="@+id/id_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="等待。。。。"
+
+            />
+
 
     </LinearLayout>
 

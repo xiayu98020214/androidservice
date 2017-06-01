@@ -5,12 +5,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.IBinder;
+import android.os.Message;
 import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -23,6 +28,12 @@ public class MainActivity extends AppCompatActivity {
     private Button bindService;
     private Button unbindService;
     private Button aidlService;
+
+    private Button handlerthread;
+    //与UI线程管理的handler
+    private Handler mHandler = new Handler();
+
+
 
     private MyService.DownloadBinder downloadBinder;
     private ServiceConnection connection = new ServiceConnection() {
@@ -46,11 +57,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.e(TAG,"MainThread thread id:"+ Thread.currentThread().getId());
+
         startService = (Button)findViewById(R.id.start_service);
         stopService = (Button)findViewById(R.id.stop_service);
         bindService = (Button)findViewById(R.id.bind_service);
         unbindService = (Button)findViewById(R.id.unbind_service);
         aidlService = (Button)findViewById(R.id.aidl_service);
+        handlerthread = (Button)findViewById(R.id.handlerthread);
 
         startService.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +104,73 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        handlerthread.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initBackThread();
+                mCheckMsgHandler.sendEmptyMessage(MSG_UPDATE_INFO);
+
+            }
+        });
+
     }
+
+
+    private HandlerThread mCheckMsgThread;
+    private Handler mCheckMsgHandler;
+    private static final int MSG_UPDATE_INFO = 0x110;
+    private TextView mTvServiceInfo;
+
+    private void initBackThread()
+    {
+        mTvServiceInfo = (TextView) findViewById(R.id.id_textview);
+        mCheckMsgThread = new HandlerThread("check-message-coming");
+        mCheckMsgThread.start();
+        mCheckMsgHandler = new Handler(mCheckMsgThread.getLooper())
+        {
+            @Override
+            public void handleMessage(Message msg)
+            {
+                checkForUpdate();
+                Log.e(TAG,"HandlerThread thread id:"+ Thread.currentThread().getId());
+                mCheckMsgHandler.sendEmptyMessageDelayed(MSG_UPDATE_INFO, 1000);
+
+            }
+        };
+
+
+    }
+
+    /**
+     * 模拟从服务器解析数据
+     */
+    private void checkForUpdate()
+    {
+        try
+        {
+            //模拟耗时
+            Thread.sleep(1000);
+            mHandler.post(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    Log.e(TAG,"mHandler thread id:"+ Thread.currentThread().getId());
+                    String result = "实时更新中，当前大盘指数：<font color='red'>%d</font>";
+                    result = String.format(result, (int) (Math.random() * 3000 + 1000));
+                    mTvServiceInfo.setText(Html.fromHtml(result));
+                }
+            });
+
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
 
     private BookManager mBookManager = null;
     private boolean mBound = false;
@@ -162,5 +242,12 @@ public class MainActivity extends AppCompatActivity {
         if (!mBound) {
             attemptToBindService();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //释放资源
+        mCheckMsgThread.quit();
     }
 }
