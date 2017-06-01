@@ -30,6 +30,9 @@
             </intent-filter>
         </service>
 
+
+        <service android:name=".UploadImgService" />
+
     </application>
 
 </manifest>

@@ -1,8 +1,10 @@
 package com.xiayu.androidservice;
 
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +17,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,11 +33,13 @@ public class MainActivity extends AppCompatActivity {
     private Button aidlService;
 
     private Button handlerthread;
+
+    private Button intentservice;
     //与UI线程管理的handler
     private Handler mHandler = new Handler();
 
 
-
+/*binder service 启动*/
     private MyService.DownloadBinder downloadBinder;
     private ServiceConnection connection = new ServiceConnection() {
         @Override
@@ -65,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         unbindService = (Button)findViewById(R.id.unbind_service);
         aidlService = (Button)findViewById(R.id.aidl_service);
         handlerthread = (Button)findViewById(R.id.handlerthread);
+        intentservice = (Button)findViewById(R.id.intentservice);
 
         startService.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,9 +119,66 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        mLyTaskContainer = (LinearLayout) findViewById(R.id.id_ll_taskcontainer);
+        registerReceiver();
+
+        intentservice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addTask(v);
+            }
+        });
+
+    }
+
+        /*intentService*/
+
+    public static final String UPLOAD_RESULT = "com.zhy.blogcodes.intentservice.UPLOAD_RESULT";
+    private LinearLayout mLyTaskContainer;
+    int i;
+    public void addTask(View view)
+    {
+        //模拟路径
+        String path = "/sdcard/imgs/" + (++i) + ".png";
+        UploadImgService.startUploadImg(this, path);
+
+        TextView tv = new TextView(this);
+        mLyTaskContainer.addView(tv);
+        tv.setText(path + " is uploading ...");
+        tv.setTag(path);
+    }
+
+    private BroadcastReceiver uploadImgReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if ( UPLOAD_RESULT.equals(intent.getAction())) {
+                Log.e(TAG, "onReceive UPLOAD_RESULT");
+                String path = intent.getStringExtra(UploadImgService.EXTRA_IMG_PATH);
+
+                handleResult(path);
+
+            }
+
+        }
+    };
+
+    private void handleResult(String path)
+    {
+        TextView tv = (TextView) mLyTaskContainer.findViewWithTag(path);
+        tv.setText(path + " upload success ~~~ ");
+    }
+    private void registerReceiver()
+    {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(UPLOAD_RESULT);
+        registerReceiver(uploadImgReceiver, filter);
     }
 
 
+
+
+    /*handlerthread */
     private HandlerThread mCheckMsgThread;
     private Handler mCheckMsgHandler;
     private static final int MSG_UPDATE_INFO = 0x110;
