@@ -62,7 +62,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.e(TAG,"MainThread thread id:"+ Thread.currentThread().getId());
+
+        int priority = android.os.Process.getThreadPriority(android.os.Process.myTid());
+        Log.e(TAG,"MainThread thread id:"+ Thread.currentThread().getId()+ "   priority:"+priority);
+
 
         startService = (Button)findViewById(R.id.start_service);
         stopService = (Button)findViewById(R.id.stop_service);
@@ -194,8 +197,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void handleMessage(Message msg)
             {
+                int priority = android.os.Process.getThreadPriority(android.os.Process.myTid());
+                Log.e(TAG,"HandlerThread thread id:"+ Thread.currentThread().getId()+"    priority:"+priority);
                 checkForUpdate();
-                Log.e(TAG,"HandlerThread thread id:"+ Thread.currentThread().getId());
+
                 mCheckMsgHandler.sendEmptyMessageDelayed(MSG_UPDATE_INFO, 1000);
 
             }
@@ -213,6 +218,11 @@ public class MainActivity extends AppCompatActivity {
         {
             //模拟耗时
             Thread.sleep(1000);
+            int i=0;
+/*            while(true){
+                Log.e(TAG,"TMP");
+                i++;
+            }*/
             mHandler.post(new Runnable()
             {
                 @Override
