@@ -17,22 +17,22 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".MyService"
-            ></service>
-
-
+        <service android:name=".MyService" />
         <service
             android:name=".AIDLService"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.xiayu.aidl"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="com.xiayu.aidl" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
-
-
         <service android:name=".UploadImgService" />
 
+        <activity
+            android:name=".SecondActivity"
+            android:label="@string/title_activity_second"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

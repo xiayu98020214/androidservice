@@ -43,6 +43,12 @@
             android:layout_height="wrap_content"
             android:text="aidl_service"/>
 
+        <Button
+            android:id="@+id/cycle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="测试生命周期"/>
+
 
         <Button
             android:id="@+id/handlerthread"

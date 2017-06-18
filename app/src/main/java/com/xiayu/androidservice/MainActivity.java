@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.e(TAG, "onCreate");
 
         int priority = android.os.Process.getThreadPriority(android.os.Process.myTid());
         Log.e(TAG,"MainThread thread id:"+ Thread.currentThread().getId()+ "   priority:"+priority);
@@ -130,6 +131,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addTask(v);
+            }
+        });
+
+
+        Button button = (Button)findViewById(R.id.cycle);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,SecondActivity.class);
+                startActivityForResult(intent ,1);
             }
         });
 
@@ -311,6 +322,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
+        Log.d(TAG, "onStart: ");
         super.onStart();
         if (!mBound) {
             attemptToBindService();
@@ -318,9 +330,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: ");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop: ");
+    }
+
+    @Override
     protected void onDestroy() {
+        Log.d(TAG, "onDestroy: ");
         super.onDestroy();
         //释放资源
         mCheckMsgThread.quit();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: ");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult() called with: requestCode = [" + requestCode + "], resultCode = [" + resultCode + "], data = [" + data + "]");
     }
 }
