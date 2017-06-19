@@ -144,6 +144,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
+        Button startmode = (Button)findViewById(R.id.startmode);
+        startmode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,SecondActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
         /*intentService*/
@@ -346,7 +357,9 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onDestroy: ");
         super.onDestroy();
         //释放资源
-        mCheckMsgThread.quit();
+        if(mCheckMsgThread!=null) {
+            mCheckMsgThread.quit();
+        }
     }
 
     @Override

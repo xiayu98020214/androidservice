@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.xiayu.androidservice.SingleTopActivity"
+    tools:showIn="@layout/activity_single_top">
+
+    <Button
+        android:id="@+id/normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="normal"
+        app:layout_constraintBottom_toTopOf="@+id/singletop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/singletop"
+        android:layout_marginLeft="-10dp"/>
+
+    <Button
+        android:id="@+id/singletop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="singletop"
+        app:layout_constraintBottom_toTopOf="@+id/singletask"
+        app:layout_constraintTop_toBottomOf="@+id/normal"
+        app:layout_constraintLeft_toLeftOf="@+id/singletask"
+        android:layout_marginLeft="-9dp"/>
+
+    <Button
+        android:id="@+id/singletask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="singletask"
+        app:layout_constraintBottom_toTopOf="@+id/singleinstance"
+        app:layout_constraintTop_toBottomOf="@+id/singletop"
+        app:layout_constraintLeft_toLeftOf="@+id/singleinstance"
+        android:layout_marginLeft="6dp"/>
+
+    <Button
+        android:id="@+id/singleinstance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="singleinstance"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/singletask"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+
+</android.support.constraint.ConstraintLayout>

@@ -51,6 +51,13 @@
 
 
         <Button
+            android:id="@+id/startmode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="测试启动模式"/>
+
+
+        <Button
             android:id="@+id/handlerthread"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

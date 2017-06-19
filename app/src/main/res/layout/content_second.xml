@@ -10,22 +10,42 @@
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/normal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="normal"
+        app:layout_constraintBottom_toTopOf="@+id/singletop"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="@+id/singletop"
+        android:layout_marginLeft="-10dp"/>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/singletop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintLeft_toRightOf="@+id/button"
-        android:layout_marginLeft="52dp"
-        app:layout_constraintBottom_toBottomOf="@+id/button"
-        android:layout_marginBottom="-88dp" />
+        android:text="singletop"
+        app:layout_constraintBottom_toTopOf="@+id/singletask"
+        app:layout_constraintTop_toBottomOf="@+id/normal"
+        app:layout_constraintLeft_toLeftOf="@+id/singletask"
+        android:layout_marginLeft="-9dp"/>
+
+    <Button
+        android:id="@+id/singletask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="singletask"
+        app:layout_constraintBottom_toTopOf="@+id/singleinstance"
+        app:layout_constraintTop_toBottomOf="@+id/singletop"
+        app:layout_constraintLeft_toLeftOf="@+id/singleinstance"
+        android:layout_marginLeft="6dp"/>
+
+    <Button
+        android:id="@+id/singleinstance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="singleinstance"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/singletask"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"/>
 </android.support.constraint.ConstraintLayout>

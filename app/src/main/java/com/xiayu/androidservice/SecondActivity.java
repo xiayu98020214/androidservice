@@ -1,5 +1,6 @@
 package com.xiayu.androidservice;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 public class SecondActivity extends AppCompatActivity {
 
@@ -28,6 +30,41 @@ public class SecondActivity extends AppCompatActivity {
             }
         });
 
+        Button normal = (Button)findViewById(R.id.normal);
+        normal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SecondActivity.this,SecondActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button singletop = (Button)findViewById(R.id.singletop);
+        singletop .setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SecondActivity.this,SingleTopActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button singletask = (Button)findViewById(R.id.singletask);
+        singletask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SecondActivity.this,SingleTaskActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button singleinstance = (Button)findViewById(R.id.singleinstance);
+        singleinstance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SecondActivity.this,SingleInstanceActivity.class);
+                startActivity(intent);
+            }
+        });
         //setResult(9);
     }
 

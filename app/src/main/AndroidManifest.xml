@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.xiayu.androidservice">
+          package="com.xiayu.androidservice">
 
     <application
         android:allowBackup="true"
@@ -11,28 +11,47 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
-        <service android:name=".MyService" />
+        <service android:name=".MyService"/>
         <service
             android:name=".AIDLService"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.xiayu.aidl" />
+                <action android:name="com.xiayu.aidl"/>
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </service>
-        <service android:name=".UploadImgService" />
+        <service android:name=".UploadImgService"/>
 
         <activity
             android:name=".SecondActivity"
             android:label="@string/title_activity_second"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".SingleTopActivity"
+            android:label="@string/title_activity_single_top"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".SingleTaskActivity"
+            android:label="@string/title_activity_single_task"
+            android:launchMode="singleTask"
+            android:taskAffinity="com.jg.zhang.androidtasktest.SingleTaskActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".SingleInstanceActivity"
+            android:launchMode="singleInstance"
+            android:label="@string/title_activity_single_instance"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">androidservice</string>
     <string name="title_activity_second">SecondActivity</string>
+    <string name="title_activity_single_top">SingleTopActivity</string>
+    <string name="title_activity_single_task">SingleTaskActivity</string>
+    <string name="title_activity_single_instance">SingleInstanceActivity</string>
 </resources>
