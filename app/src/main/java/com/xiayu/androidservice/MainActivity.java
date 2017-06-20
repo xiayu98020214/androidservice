@@ -12,6 +12,7 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.RemoteException;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
@@ -22,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
+
+import static com.xiayu.androidservice.R.id.id_ll_taskcontainer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -124,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        mLyTaskContainer = (LinearLayout) findViewById(R.id.id_ll_taskcontainer);
+        mLyTaskContainer = (LinearLayout) findViewById(id_ll_taskcontainer);
         registerReceiver();
 
         intentservice.setOnClickListener(new View.OnClickListener() {
@@ -155,6 +158,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.d(TAG, "onRestoreInstanceState() called with: savedInstanceState = [" + savedInstanceState + "]");
     }
 
         /*intentService*/
@@ -372,5 +381,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "onActivityResult() called with: requestCode = [" + requestCode + "], resultCode = [" + resultCode + "], data = [" + data + "]");
+        BlankFragment fragment = new BlankFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+       // transaction.add(fragment,"test");
+        transaction.replace(R.id.fragment_container,fragment);
+        transaction.commit();
+
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d(TAG, "onSaveInstanceState() called with: outState = [" + outState + "]");
+    }
+
 }

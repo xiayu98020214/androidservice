@@ -13,6 +13,9 @@ import android.widget.Button;
 public class SecondActivity extends AppCompatActivity {
 
     private static final String TAG = "SecondActivity";
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,5 +70,17 @@ public class SecondActivity extends AppCompatActivity {
         });
         //setResult(9);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d(TAG, "onSaveInstanceState() called with: outState = [" + outState + "]");
+    }
+
 
 }
