@@ -66,6 +66,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.e(TAG, "onCreate");
+        if(savedInstanceState !=null){
+           int temp =  savedInstanceState.getInt("currentposition");
+            Log.e(TAG, "onSaveInstanceState temp:"+temp);
+        }
 
         int priority = android.os.Process.getThreadPriority(android.os.Process.myTid());
         Log.e(TAG,"MainThread thread id:"+ Thread.currentThread().getId()+ "   priority:"+priority);
@@ -393,6 +397,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(TAG, "onSaveInstanceState() called with: outState = [" + outState + "]");
+        outState.putInt("currentposition", 8989);
+
     }
 
 }
